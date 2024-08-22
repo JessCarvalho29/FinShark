@@ -4,10 +4,9 @@
 ### DotnetCore ###
 # .NET Core build folders
 bin/
-obj/
+obj
 obj/**
-api/obj/**
-api/obj/
+api/obj/project.nuget.cache
 
 .DS_Store
 
