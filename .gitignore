@@ -5,6 +5,9 @@
 # .NET Core build folders
 bin/
 obj/
+obj/**
+api/obj/**
+api/obj/
 
 .DS_Store
 
