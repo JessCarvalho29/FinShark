@@ -11,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Adding our controllers:
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -48,6 +50,9 @@ app.UseHttpsRedirection();
 // })
 // .WithName("GetWeatherForecast")
 // .WithOpenApi();
+
+// Adding MapControllers method, if you don't add, Swagger will not work and will produce an error
+app.MapControllers();
 
 app.Run();
 
