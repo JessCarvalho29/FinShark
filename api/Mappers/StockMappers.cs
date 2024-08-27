@@ -20,7 +20,8 @@ public static class StockMappers
             Dividend = stockModel.Dividend,
             LastDividendYield = stockModel.LastDiv,
             Industry = stockModel.Industry,
-            MarketCap = stockModel.MarketCap
+            MarketCap = stockModel.MarketCap,
+            Comments = stockModel.Comments.Select(c => c.ToCommentDto()).ToList()
         };
     }
     
@@ -40,18 +41,18 @@ public static class StockMappers
         };
     }
 
-    public static Stock ToStockFromUpdateDto(this UpdateStockRequestDto stockDto, int id)
-    {
-        return new Stock
-        {
-            Id = id,
-            Symbol = stockDto.Symbol,
-            CompanyName = stockDto.CompanyName,
-            Purchase = stockDto.Purchase,
-            Dividend = stockDto.Dividend,
-            LastDiv = stockDto.LastDividendYield,
-            Industry = stockDto.Industry,
-            MarketCap = stockDto.MarketCap
-        };
-    }
+    // public static Stock ToStockFromUpdateDto(this UpdateStockRequestDto stockDto, int id)
+    // {
+    //     return new Stock
+    //     {
+    //         Id = id,
+    //         Symbol = stockDto.Symbol,
+    //         CompanyName = stockDto.CompanyName,
+    //         Purchase = stockDto.Purchase,
+    //         Dividend = stockDto.Dividend,
+    //         LastDiv = stockDto.LastDividendYield,
+    //         Industry = stockDto.Industry,
+    //         MarketCap = stockDto.MarketCap
+    //     };
+    // }
 }
