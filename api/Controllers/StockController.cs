@@ -1,5 +1,6 @@
 using api.Data;
 using api.Dtos.Stock;
+using api.Helpers;
 using api.Interfaces;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
@@ -30,8 +31,13 @@ public class StockController : ControllerBase
     // Attribute Get + interface IActionResult
     [HttpGet]
     // making the method asynchronous, we need to use async and specify a return type (in this case, in form of Task)
-    public async Task<IActionResult>  GetAll()
+    public async Task<IActionResult>  GetAll([FromQuery] QueryObject queryObject)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
         // Getting information from our SetDB defined in ApplicationDbContext and transforming in a List
         // toList: Deferred execution - in order to create the SQL, go to the database and get what we need, we have to have the list because of deferred execution
         // ... Reade more about it ...
@@ -40,7 +46,7 @@ public class StockController : ControllerBase
         // We should only use async await with parts of code that execute any outside task
         // Also it's necessary to change the method previous used to the Async one: ToList -> ToListAsync
         // var stocks = await _context.Stock.ToListAsync();
-        var stocks = await _stockRepository.GetAllAsync();
+        var stocks = await _stockRepository.GetAllAsync(queryObject);
         var stockDto = stocks.Select(s => s.ToStockDto());
         
         // An (Ok)ObjectResult that when executed performs content negotiation, formats the entity body, and will produce a Status200OK response if negotiation and formatting succeed
@@ -50,10 +56,15 @@ public class StockController : ControllerBase
     
     // Creating an endpoint API that will only return one item, so we can have the detail from the list above
     // Specifying with record we want to return, the id. The data will be transferred into the parameter and .net will use model binding to extract the string out, turn into an int and pass it into our code
-    [HttpGet("{id}")]
+    [HttpGet("{id:int}")]
     // IActionResult is a wrapper that will return data from the API (line 34)
     public async Task<IActionResult> GetById([FromRoute] int id)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
         // Find(): finds an entity with the given primary key values.
         // var stock = await _context.Stock.FindAsync(id);
         var stock = await _stockRepository.GetByIdAsync(id);
@@ -73,6 +84,11 @@ public class StockController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateStockRequestDto stockDto)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
         var stockModel = stockDto.ToStockFromCreateDto();
         // await _context.Stock.AddAsync(stockModel);
         // await _context.SaveChangesAsync();
@@ -85,9 +101,14 @@ public class StockController : ControllerBase
     
     // Creating an Update
     [HttpPut]
-    [Route("{id}")]
+    [Route("{id:int}")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStockRequestDto updateDto)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
         // Check if the item exists
         // First or default: Returns the first element of a sequence that satisfies a specified condition or a default value if no such element is found.
         // When the item is found, Entity Framework is going to be tracking it
@@ -125,9 +146,14 @@ public class StockController : ControllerBase
     
     // Delete
     [HttpDelete]
-    [Route("{id}")]
+    [Route("{id:int}")]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
         // var stockModel = await _context.Stock.FirstOrDefaultAsync(x => x.Id == id);
         var stockModel = await _stockRepository.DeleteAsync(id);
 

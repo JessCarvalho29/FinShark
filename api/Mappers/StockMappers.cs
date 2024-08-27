@@ -17,11 +17,10 @@ public static class StockMappers
             Symbol = stockModel.Symbol,
             CompanyName = stockModel.CompanyName,
             Purchase = stockModel.Purchase,
-            Dividend = stockModel.Dividend,
             LastDividendYield = stockModel.LastDiv,
             Industry = stockModel.Industry,
             MarketCap = stockModel.MarketCap,
-            Comments = stockModel.Comments.Select(c => c.ToCommentDto()).ToList()
+            Comments = stockModel.Comments.Select(c => c.ToCommentResponseDto()).ToList()
         };
     }
     
@@ -34,7 +33,6 @@ public static class StockMappers
             Symbol = stockDto.Symbol,
             CompanyName = stockDto.CompanyName,
             Purchase = stockDto.Purchase,
-            Dividend = stockDto.Dividend,
             LastDiv = stockDto.LastDividendYield,
             Industry = stockDto.Industry,
             MarketCap = stockDto.MarketCap
@@ -49,7 +47,6 @@ public static class StockMappers
     //         Symbol = stockDto.Symbol,
     //         CompanyName = stockDto.CompanyName,
     //         Purchase = stockDto.Purchase,
-    //         Dividend = stockDto.Dividend,
     //         LastDiv = stockDto.LastDividendYield,
     //         Industry = stockDto.Industry,
     //         MarketCap = stockDto.MarketCap

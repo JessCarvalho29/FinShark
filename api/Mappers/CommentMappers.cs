@@ -5,7 +5,7 @@ namespace api.Mappers;
 
 public static class CommentMappers
 {
-    public static CommentResponseDto ToCommentDto(this Comment comment)
+    public static CommentResponseDto ToCommentResponseDto(this Comment comment)
     {
         return new CommentResponseDto
         {
@@ -17,13 +17,14 @@ public static class CommentMappers
         };
     }
 
-    public static Comment ToCommentFromCreate(this CreateCommentRequestDto comment, int stockId)
+    public static Comment ToCommentFromCreateCommentRequestDto(this CreateCommentRequestDto createCommentRequestDto, int stockId)
     {
         return new Comment
         {
-            Title = comment.Title,
-            Content = comment.Content,
+            Title = createCommentRequestDto.Title,
+            Content = createCommentRequestDto.Content,
             StockId = stockId
         };
     }
+    
 }

@@ -19,9 +19,6 @@ public class Stock
     public decimal Purchase { get; set; }
     
     [Column(TypeName = "decimal(18, 2)")]
-    public decimal Dividend { get; set; }
-    
-    [Column(TypeName = "decimal(18, 2)")]
     public decimal LastDiv { get; set; }
     
     [Column(TypeName = "varchar(100)")]
