@@ -8,7 +8,7 @@ namespace api.Models;
 
 // If I call the table AppUserStock entity framework will identify that is a many-to-many relationship and take care of everything
 
-// [Table("Portfolios")]
+[Table("Portfolios")]
 public class Portfolio
 {
     // Ids in the many-to-many relation

@@ -12,8 +12,8 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240830154546_PortifolioManyToMany")]
-    partial class PortifolioManyToMany
+    [Migration("20240830200234_PortfolioManyToMany")]
+    partial class PortfolioManyToMany
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,13 +54,13 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4bba5462-2aac-4983-8695-5e5127b18cdd",
+                            Id = "9e240dd4-2088-4faa-92e8-9105f8ce1aad",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "8d04755f-4ebf-4f44-aa54-e13ad20b9201",
+                            Id = "7f043d14-d146-4171-a530-e88b612e2b28",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -380,13 +380,13 @@ namespace api.Migrations
             modelBuilder.Entity("api.Models.Portfolio", b =>
                 {
                     b.HasOne("api.Models.AppUser", "AppUser")
-                        .WithMany("Portifolios")
+                        .WithMany("Portfolios")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("api.Models.Stock", "Stock")
-                        .WithMany("Portifolios")
+                        .WithMany("Portfolios")
                         .HasForeignKey("StockId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -398,14 +398,14 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.AppUser", b =>
                 {
-                    b.Navigation("Portifolios");
+                    b.Navigation("Portfolios");
                 });
 
             modelBuilder.Entity("api.Models.Stock", b =>
                 {
                     b.Navigation("Comments");
 
-                    b.Navigation("Portifolios");
+                    b.Navigation("Portfolios");
                 });
 #pragma warning restore 612, 618
         }

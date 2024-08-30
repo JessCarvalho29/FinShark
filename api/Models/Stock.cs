@@ -4,7 +4,7 @@ using api.Dtos.Comment;
 
 namespace api.Models;
 
-// [Table("Stocks")]
+[Table("Stocks")]
 public class Stock
 {
     public int Id { get; set; }

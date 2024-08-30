@@ -25,15 +25,17 @@ public class ApplicationDbContext : IdentityDbContext<AppUser>
     public DbSet<Comment> Comments { get; set; }
     
     public DbSet<Portfolio> Portfolios { get; set; }
-    
+
     // Creating roles
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-
+    
+        builder.Entity<Stock>();
+        
         // Declaring the foreign keys
         builder.Entity<Portfolio>(x => x.HasKey(p => new { p.AppUserId, p.StockId }));
-
+    
         // Connect the foreign keys to the table 
         builder.Entity<Portfolio>()
             .HasOne(u => u.AppUser)
@@ -44,14 +46,14 @@ public class ApplicationDbContext : IdentityDbContext<AppUser>
             .HasOne(u => u.Stock)
             .WithMany(u => u.Portfolios)
             .HasForeignKey(p => p.StockId);
-
+    
         List<IdentityRole> roles = new List<IdentityRole>
         {
             new IdentityRole
             {
                 Name = "Admin",
                 NormalizedName = "ADMIN"
-
+    
             },
             new IdentityRole
             {
