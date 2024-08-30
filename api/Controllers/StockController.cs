@@ -3,6 +3,7 @@ using api.Dtos.Stock;
 using api.Helpers;
 using api.Interfaces;
 using api.Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers;
@@ -30,6 +31,7 @@ public class StockController : ControllerBase
     // Creating the HTTP Get: read data from the database using a method
     // Attribute Get + interface IActionResult
     [HttpGet]
+    [Authorize]
     // making the method asynchronous, we need to use async and specify a return type (in this case, in form of Task)
     public async Task<IActionResult>  GetAll([FromQuery] QueryObject queryObject)
     {

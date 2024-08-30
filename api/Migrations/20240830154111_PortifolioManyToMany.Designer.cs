@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Data;
 
@@ -11,9 +12,11 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240830154111_PortifolioManyToMany")]
+    partial class PortifolioManyToMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "403db89b-0751-4b46-ab3d-e1c7d12a5e62",
+                            Id = "6b050a86-b81d-4c17-9ddc-a023aa5849ba",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "f9346f06-dbde-4ca1-8df7-e55b9ff6cce7",
+                            Id = "9f1a3832-7f9b-47ed-a992-513db6af9dc7",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -377,13 +380,13 @@ namespace api.Migrations
             modelBuilder.Entity("api.Models.Portfolio", b =>
                 {
                     b.HasOne("api.Models.AppUser", "AppUser")
-                        .WithMany("Portfolios")
+                        .WithMany("Portifolios")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("api.Models.Stock", "Stock")
-                        .WithMany("Portfolios")
+                        .WithMany("Portifolios")
                         .HasForeignKey("StockId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -395,14 +398,14 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.AppUser", b =>
                 {
-                    b.Navigation("Portfolios");
+                    b.Navigation("Portifolios");
                 });
 
             modelBuilder.Entity("api.Models.Stock", b =>
                 {
                     b.Navigation("Comments");
 
-                    b.Navigation("Portfolios");
+                    b.Navigation("Portifolios");
                 });
 #pragma warning restore 612, 618
         }
