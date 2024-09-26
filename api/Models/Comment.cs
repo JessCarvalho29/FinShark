@@ -22,4 +22,10 @@ public class Comment
     // Navigational property: important because is what is going to allow us to be able to access this part
     // allow us to navigate within our models, our relationship
     public Stock? Stock { get; set; }
+    
+    // One-to-many relationship table
+    public string AppUserId { get; set; }
+    
+    // Navigational property
+    public AppUser AppUser { get; set; }
 }

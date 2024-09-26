@@ -19,12 +19,14 @@ public class CommentRepository : ICommentRepository
     
     public async Task<List<Comment>> GetAllAsync()
     {
-        return await _context.Comments.ToListAsync();
+        // Adding the Include to show the appUser (because of deferred execution)
+        return await _context.Comments.Include(a => a.AppUser).ToListAsync();
     }
 
     public async Task<Comment?> GetByIdAsync(int id)
     {
-        return await _context.Comments.FindAsync(id);
+        // Adding the Include to show the appUser (because of deferred execution)
+        return await _context.Comments.Include(a => a.AppUser).FirstOrDefaultAsync(c => c.Id == id);
     }
 
     public async Task<Comment> CreateAsync(Comment comment)

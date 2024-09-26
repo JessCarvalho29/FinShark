@@ -49,7 +49,7 @@ public class StockController : ControllerBase
         // Also it's necessary to change the method previous used to the Async one: ToList -> ToListAsync
         // var stocks = await _context.Stock.ToListAsync();
         var stocks = await _stockRepository.GetAllAsync(queryObject);
-        var stockDto = stocks.Select(s => s.ToStockDto());
+        var stockDto = stocks.Select(s => s.ToStockDto()).ToList();
         
         // An (Ok)ObjectResult that when executed performs content negotiation, formats the entity body, and will produce a Status200OK response if negotiation and formatting succeed
         // Returning a 200 request (success)

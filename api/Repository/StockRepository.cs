@@ -24,7 +24,15 @@ public class StockRepository : IStockRepository
         // return await _context.Stocks.Include(c => c.Comments).ToListAsync();
         
         // Including AsQueryable to make possible to add a filter to the query.
-        var stocks = _context.Stocks.Include(c => c.Comments).AsQueryable();
+        var stocks = _context.Stocks.Include(c => c.Comments).ThenInclude(a => a.AppUser).AsQueryable();
+        
+        // Including user in the comments require that we include also in the stock, due to stock be nested to comments that will be nested to user:
+        /* {"stock": "TSLA"
+            "comments": [
+                "content": "tsla bad"
+                "createdBy": {object}
+            ]}
+        */    
 
         if (!string.IsNullOrWhiteSpace(queryObject.CompanyName))
         {
@@ -104,5 +112,11 @@ public class StockRepository : IStockRepository
     public async Task<bool> StockExists(int id)
     {
         return await _context.Stocks.AnyAsync(s => s.Id == id);
+    }
+
+    public async Task<Stock?> GetBySymbolAsync(string symbol)
+    {
+        // Method to filter by our stocks
+        return await _context.Stocks.FirstOrDefaultAsync(s => s.Symbol == symbol);
     }
 }
