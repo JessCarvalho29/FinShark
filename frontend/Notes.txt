@@ -1,0 +1,44 @@
+Props: Important because it makes data check and spell check.
+
+React components are funcions, so when we are passing down the props, we are passing data into a function
+
+Props: Interface x Type
+* Use interface: When defining the structure of props, especially for public APIs or reusable components.
+* Use type: When you need to define more complex types, such as unions or intersections, or when you want to ensure consistency in your component props.
+
+Functions are objects in JavaScript: because that, we can type them.
+  - Type the params
+  - Type the Entire Functions --> React.FC<Props>
+  - Type the return --> JSX.Element
+
+Ex:
+
+const Card : React.FC<Props> = () : JSX.Element => {
+  return(
+    <div>
+    </div>
+  )
+}
+
+State: Is a part is CRUD --> Storing and manipularing data
+  State in react is described as a memory card, but with very specific rules to follow.
+  React is rendering constantly. State is what keeps the data stored in between "jumps" otherwise you would have huge issues.
+  That's why we store the state: const[index, setIndex] = useState() --> predefined hook
+    index: getter --> get it to utilize into the html of the web page
+    setIndex: setter --> the pages rerender each time we use the setter
+
+  typescript:
+    inference: typescript do the type check for you
+    generics: explicit, allows us to pass in the type
+
+Events: pieces of code that fire when we interect with it (button, page etc)
+  JavaScript: 3 step process: Grab the event from the HTML, create the event listener and execute the code once the button is pressed
+  React: everything is abstract: the event listener is built inside teh JSX, and just need to insert the code we want to run when the button is pressed
+    finding types for event handles: copy the type of the e (where the event listener is)
+      if its difficult to find a event, we can use SyntheticEvent (more general), but it won't have the type checking
+
+API calls:
+  Financial Modeling Prep API: to get Finantial data (free for 200 requests a day)
+  Using axios to make HTTP requests.
+
+  PS: To test in a fast way, just include the funcion inside a console.log in index.tsx. Once the page is rendered, the info you want to test will be in the console.
